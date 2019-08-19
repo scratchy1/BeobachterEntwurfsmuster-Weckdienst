@@ -1,0 +1,45 @@
+package weckdienst;
+
+import java.util.ArrayList;
+import java.time.LocalTime;
+import java.time.LocalTime;
+public class WakeUpService{
+    private int wakeUpTime;
+    private int currentHour;
+    public ArrayList<WakeUpServiceClient> clientListe = new ArrayList<WakeUpServiceClient>();
+    
+    public WakeUpService(int wakeUpTime) {
+        this.wakeUpTime = wakeUpTime;
+    }
+
+    public void register(WakeUpServiceClient client) {
+        clientListe.add(client);
+    }
+    
+    //public void wakeup(int currentHour) {
+        
+    //}
+    public void wakeUpAllClients() {
+        for(WakeUpServiceClient client: clientListe) {
+            client.wakeup(currentHour);
+        }
+        
+    }
+    public void startService() {
+        boolean finished = false;
+        System.out.println("Weckdienst fuer Weckzeit " + wakeUpTime + ":00 Uhr gestartet.");
+        while (!finished) {
+            int currentHour = LocalTime.now().getHour();
+            if (currentHour == wakeUpTime) {
+                wakeUpAllClients();
+                finished = true;
+            }
+            try {
+                Thread.sleep(1000); // Eine Sekunde Pause
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+}
