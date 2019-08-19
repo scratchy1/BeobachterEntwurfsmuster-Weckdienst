@@ -16,12 +16,10 @@ public class WakeUpService{
         clientListe.add(client);
     }
     
-    //public void wakeup(int currentHour) {
-        
-    //}
+    
     public void wakeUpAllClients() {
         for(WakeUpServiceClient client: clientListe) {
-            client.wakeup(currentHour);
+            client.wakeup(wakeUpTime);
         }
         
     }
