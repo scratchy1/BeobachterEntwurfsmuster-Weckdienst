@@ -1,0 +1,40 @@
+package weckdienst;
+
+import java.util.List;
+import java.time.LocalTime;
+public class WakeUpServiceTest {
+
+    public static void main(String[] args) {
+        int currentHour=0;
+        WakeUpService wus = new WakeUpService(currentHour);
+        
+        WakeUpServiceClient heino = new WakeUpServiceClient() {
+
+            @Override
+            public void wakeup(int currentHour) {
+                System.out.println("Aufwachen!");
+            }
+        };
+        wus.register(heino);
+        wus.startService();
+
+        Client gerlinde = new Client();
+        gerlinde.wakeup(9);
+        System.out.println("Wassereimer über Kopf kippen");
+        wus.register(gerlinde);
+        wus.startService();
+
+        wus.register(new WakeUpServiceClient(){
+            
+            @Override
+            public void wakeup(int time) {
+                System.out.println("Seufz. Auch Anonymitaet "
+                        + "schuetzt nicht vorm Aufstehenmuessen.");
+            }
+        });
+        wus.register(w -> System.out.println(w +" Uhr. Kundin/Kunde wurde geweckt."));
+        wus.startService();
+
+    }
+
+}
