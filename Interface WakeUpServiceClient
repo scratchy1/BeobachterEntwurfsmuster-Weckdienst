@@ -1,0 +1,5 @@
+package weckdienst;
+import java.time.LocalTime;
+public interface WakeUpServiceClient {
+    void wakeup(int wakeUpTime);
+}
